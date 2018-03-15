@@ -4,16 +4,18 @@
 A dashboard to use with a Raspberry PI and it's screen between 3.5 to 7"
 
 ## Features
++ Affichage du traffic de la RATP et des horaires de passage de la ligne sélectionnée
++ Affichage de la météo
++ Affichage des informations de la plante qu'on a configuré
 + ES6 and greater => ES5 code transpiling (with Babel)
 + Styling with SASS
 + File bundling with webpack
 + local development with the webpack development server
-+ RATP, WEATHER, PLANT COMPONENTS
 
 ## Requirements
-To run this project, you’ll need to install [node 5 and above](https://nodejs.org/en/). The latest version of Node.js is recommended. 
+To run this project, you’ll need to install node package manager and webpack Dev Server.
 
-The dependencies of this project are managed with node package manager, npm for your dependency management.
+The dependencies of this project are managed with , npm for your dependency management.
 
 ## Setting up
 + Clone this project to any folder on your local machine

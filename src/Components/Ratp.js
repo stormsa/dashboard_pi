@@ -74,7 +74,8 @@ class Ratp extends Component {
                     schedules: data.result.schedules.map((schedule) =>{
                         // Get time in minutes
                         schedule.key = this.getUniqueKey()
-                        return this.diff_minutes(schedule)
+                        this.diff_minutes(schedule)
+                        return schedule
                     })
                 })
                 this.timerId = setInterval(
@@ -108,11 +109,16 @@ class Ratp extends Component {
     }
     manageSchedules(){
         this.setState(prevState => ({
-            schedules: prevState.schedules.filter((schedule) => {
-                return this.diff_minutes(schedule) !== null
+            schedules: prevState.schedules
+                // Supprime l'heure si elle est égale à 0
+                .filter(schedule => schedule.time > 0)
+                .map((schedule) =>{
+                    this.diff_minutes(schedule)
+                    return schedule
             })
         }))
     }
+
     componentDidUpdate(props){
     }
     static editShedule(schedule){
@@ -144,8 +150,10 @@ class Ratp extends Component {
             // Set diff time in schedule object
             schedule.time = time
         }
+        else{
+            schedule.time = 0
+        }
         return schedule
-
     }
     /*
     removeSchedule(schdeduleKey){
