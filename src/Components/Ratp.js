@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import './App.css';
 
 const API = "https://api-ratp.pierre-grimaud.fr/v3";
@@ -14,21 +13,28 @@ class Ratp extends Component {
             slug: "",
             colorTraffic: "green",
             schedules: [],
+            times: [],
             divStyle: {
                 backgroundColor: 'green'
             }
         }
         this.getTraffic = this.getTraffic.bind(this)
         this.getHoraire = this.getHoraire.bind(this)
-        this.station = props.station
+        this.refresh = this.refresh.bind(this)
+        this.getUniqueKey = this.getUniqueKey.bind(this)
+        this.manageSchedules = this.manageSchedules.bind(this)
+        this.displayStation = props.station
+        this.station = props.station.replace(" ", "+")
+        this.walkTime = parseInt(props.walkTime, 10) ? props.walkTime : 13
         this.way = props.way
         this.line = props.line
         this.destination = props.destination
         this.transportType = props.transportType
+        this.imgPath = "./images/"
+        this.image = this.imgPath + this.transportType + "/" + this.line+".png"
     }
     componentDidMount(){
-        this.getTraffic()
-        this.getHoraire()
+        this.refresh()
     }
     getTraffic() {
         fetch(API + DATA_TYPES[1]+"/"+ this.transportType + "/"+this.line)
@@ -48,57 +54,147 @@ class Ratp extends Component {
                     })
                 }
             })
+            .catch(function (error) {
+                console.log(error)
+                this.setState({
+                    title: "Erreur",
+                    message: "Les données n'ont pas pu être chargées",
+                    slug: "network_error"
+                })
+            })
     }
     getHoraire() {
         fetch(API + DATA_TYPES[0] + "/" + this.transportType + "/" + this.line + "/" + this.station + "/" + this.way)
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    schedules: data.result.schedules
+                    schedules: data.result.schedules.map((schedule) =>{
+                        // Get time in minutes
+                        schedule.key = this.getUniqueKey()
+                        return this.diff_minutes(schedule)
+                    })
                 })
+                this.timerId = setInterval(
+                    () => {
+                        this.manageSchedules()
+                    }, 50000)
+            })
+            .catch(function (error) {
+                // Mock data
+                let key = this.getUniqueKey()
+                let schedules = [{key: key,
+                    destination: "Mock Destination",
+                    message: "5",
+                    time: 5}]
+                this.setState({
+                    schedules: schedules
 
+                })
+                console.log(error)
             })
 
+
+    }
+    getUniqueKey(){
+        this.key = this.key || 0
+        return this.key++
+    }
+    refresh(){
+        this.getTraffic()
+        this.getHoraire()
+    }
+    manageSchedules(){
+        this.setState(prevState => ({
+            schedules: prevState.schedules.filter((schedule) => {
+                return this.diff_minutes(schedule) !== null
+            })
+        }))
     }
     componentDidUpdate(props){
-        console.log("component update")
     }
+    static editShedule(schedule){
+        // Get moment date
+        let date = new Date();
+        let minutes = date.getMinutes();
+        let hour = date.getHours();
+        // Split time in two differents times
+        let time = schedule.message.time
+        if(parseInt(time, 10) > 0){
+             schedule.time = time - minutes
+        }
+        return schedule
+
+    }
+    diff_minutes = function(schedule)
+    {
+        let timeHM = schedule.message.split(":")
+        let time = 0
+        let date = new Date();
+        let minutes = date.getMinutes();
+        let hour = date.getHours();
+        while(parseInt(timeHM[0], 10) > parseInt(hour, 10)){
+            timeHM[1] = parseInt(timeHM[1], 10) + 60;
+            hour++;
+        }
+        if(parseInt(timeHM[1],10)> parseInt(minutes, 10)){
+            time = timeHM[1] - minutes
+            // Set diff time in schedule object
+            schedule.time = time
+            return schedule
+        }
+        return null
+
+    }
+    /*
+    removeSchedule(schdeduleKey){
+        this.setState(prevState => ({
+            schedules: prevState.schedules.filter(schedule => schedule.key !== schdeduleKey)
+        }))
+    }
+    */
   render() {
+      let walkTime = this.walkTime
       const eachSchedule = function(schedule){
           return (
-              <Schedule destination={schedule.destination}
-                        message={schedule.message}>
+              <Schedule key={schedule.key}
+                  destination={schedule.destination}
+                        message={schedule.message}
+                        time={schedule.time}>
               </Schedule>
           )
       }
       const Schedule = function(props){
-          let time = props.message.split(":")
-
-          let timeBT = diff_minutes(time);
+          let displaytime = ""
+          let style = {
+              color:"black"
+          }
+          if(props.time === 0){
+              displaytime = "Train à l'approche"
+          }else if(props.time !== undefined){
+              displaytime = "("+props.time + " mn)"
+              if(walkTime < props.time){
+                  style = {
+                      color: "green",
+                      fontWeight: "bold"
+                  }
+              }else{
+                  style = {
+                      color:"orange"
+                  }
+              }
+          }
           return (
               <div className="row">
                   <div className="col-md-6 col-6">{props.destination}</div>
-                  <div className="col-md-6 col-6">{props.message} ({timeBT} mn) </div>
+                  <div className="col-md-6 col-6">{props.message} <span style={style}> {displaytime}</span>  </div>
               </div>
           )
       }
-       const diff_minutes = function(time)
-      {
-          let date = new Date;
-          let minutes = date.getMinutes();
-          let hour = date.getHours();
-          while(parseInt(time[0]) > parseInt(hour)){
-              time[1] = parseInt(time[1]) + 60;
-              hour++;
-          }
-          if(parseInt(time[1])> parseInt(minutes)){
-              return (time[1] - minutes)
-          }
-      }
     return (
-      <div className="APP RATP">
-          <div style={this.state.divStyle} className="row"><b>{this.line} {this.station} </b> <button className="fa fa-refresh"> </button></div>
-          <span className="row"> {this.state.slug !== "normal" ? this.state.message : ""}</span>
+      <div className="App RATP">
+          <div style={this.state.divStyle} className="row"><b>{this.line} <img src={require(this.image)} style={{width:"30px",display: "inline"}}/>
+              {this.displayStation} </b> <button className="fa fa-refresh" onClick={this.refresh}> </button></div>
+          <span className="col-offset-1 col-10"> {this.state.slug !== "normal" ? this.state.message : ""}</span>
           <div className="row">
               <div className="col-md-6 col-6">Destination</div>
               <div className="col-md-6 col-6">Temps</div>

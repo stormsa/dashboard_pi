@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background: beige;
+  height: 100vh;
+  position: center;
 }
 
 .App-logo {
@@ -22,9 +25,7 @@
   font-size: large;
 }
 .RATP{
-  position: center;
-  background: beige;
-  height: 100vh;
+
 }
 
 @keyframes App-logo-spin {
