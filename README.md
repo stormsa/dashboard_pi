@@ -1,7 +1,7 @@
 # React Dashboard PI
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) 
 
-A dashboard to use in a Raspberry PI with screen between 3.5 to 7"
+A dashboard to use with a Raspberry PI and it's screen between 3.5 to 7"
 
 ## Features
 + ES6 and greater => ES5 code transpiling (with Babel)

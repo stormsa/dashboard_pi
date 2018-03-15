@@ -15,7 +15,8 @@ class Ratp extends Component {
             schedules: [],
             times: [],
             divStyle: {
-                backgroundColor: 'green'
+                backgroundColor: 'green',
+                paddingLeft: "50px"
             }
         }
         this.getTraffic = this.getTraffic.bind(this)
@@ -30,8 +31,9 @@ class Ratp extends Component {
         this.line = props.line
         this.destination = props.destination
         this.transportType = props.transportType
-        this.imgPath = "./images/"
+        this.imgPath = "../images/"
         this.image = this.imgPath + this.transportType + "/" + this.line+".png"
+        this.logo = require("../images/"+this.transportType+"/"+this.line+".png");
     }
     componentDidMount(){
         this.refresh()
@@ -49,7 +51,8 @@ class Ratp extends Component {
                 if (this.state.slug !== "normal") {
                     this.setState({
                         divStyle: {
-                            backgroundColor: 'green'
+                            backgroundColor: 'red',
+                            paddingLeft: "50px"
                         }
                     })
                 }
@@ -116,7 +119,7 @@ class Ratp extends Component {
         // Get moment date
         let date = new Date();
         let minutes = date.getMinutes();
-        let hour = date.getHours();
+        //let hour = date.getHours();
         // Split time in two differents times
         let time = schedule.message.time
         if(parseInt(time, 10) > 0){
@@ -125,7 +128,7 @@ class Ratp extends Component {
         return schedule
 
     }
-    diff_minutes = function(schedule)
+    diff_minutes(schedule)
     {
         let timeHM = schedule.message.split(":")
         let time = 0
@@ -140,9 +143,8 @@ class Ratp extends Component {
             time = timeHM[1] - minutes
             // Set diff time in schedule object
             schedule.time = time
-            return schedule
         }
-        return null
+        return schedule
 
     }
     /*
@@ -192,7 +194,7 @@ class Ratp extends Component {
       }
     return (
       <div className="App RATP">
-          <div style={this.state.divStyle} className="row"><b>{this.line} <img src={require(this.image)} style={{width:"30px",display: "inline"}}/>
+          <div style={this.state.divStyle} className="row"><b><img src={this.logo} alt={this.line} style={{width:"25px",display: "inline"}}/>
               {this.displayStation} </b> <button className="fa fa-refresh" onClick={this.refresh}> </button></div>
           <span className="col-offset-1 col-10"> {this.state.slug !== "normal" ? this.state.message : ""}</span>
           <div className="row">
@@ -206,5 +208,4 @@ class Ratp extends Component {
     );
   }
 }
-
 export default Ratp;

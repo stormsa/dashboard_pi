@@ -49,7 +49,7 @@ class Weather extends Component{
                         Humidite {this.state.humidite} %
                     </div>
                     <div className="col-12">
-                        <img id="image" style={{width: "100px"}} src={this.state.image}/>
+                        <img id="image" style={{width: "100px"}} alt="weather" src={this.state.image}/>
                     </div>
 
                     <div className="col-12">

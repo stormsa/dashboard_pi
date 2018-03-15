@@ -1,27 +1,26 @@
 {
   "name": "react-webpack-kit",
   "version": "1.0.0",
-  "description": "a boiler plate for creating react applications bundled by webpack",
+  "description": "a dashboard to use with a Raspberry PI and it's screen between 3.5 to 7",
   "main": "src/js/app.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
     "build": "./node_modules/.bin/webpack --config webpack.config.dev.js",
     "build:production": "./node_modules/.bin/webpack --config webpack.config.production.js",
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.production.js"
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js"
   },
-  "homepage": "https://github.com/temilaj/react-webpack-starter",
-  "repository": "https://github.com/temilaj/react-webpack-starter.git",
+  "homepage": "https://github.com/stormsa/dashboard_pi",
+  "repository": "https://github.com/stormsa/dashboard_pi.git",
   "keywords": [
     "react",
     "webpack",
-    "react sample",
-    "react starter",
-    "react boilerplate"
+    "Raspberry PI",
+    "react Node"
   ],
-  "author": "Temi Lajumoke <temi@temilajumoke.com> (http://temilajumoke.com)",
+  "author": "Sofiane AZRI <sofiane.aziri@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^1.9.1",
+    "jquery": "^3.0.0",
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
