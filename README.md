@@ -4,9 +4,9 @@
 A dashboard to use with a Raspberry PI and it's screen between 3.5 to 7"
 
 ## Features
-+ Affichage du traffic de la RATP et des horaires de passage de la ligne sélectionnée
-+ Affichage de la météo
-+ Affichage des informations de la plante qu'on a configuré
++ Display RATP Traffic and schedules 
++ Display weather
++ Display informations about a plant you choosed
 + ES6 and greater => ES5 code transpiling (with Babel)
 + Styling with SASS
 + File bundling with webpack

@@ -111,7 +111,7 @@ class Ratp extends Component {
         this.setState(prevState => ({
             schedules: prevState.schedules
                 // Supprime l'heure si elle est égale à 0
-                .filter(schedule => schedule.time > 0)
+                .filter(schedule => schedule.time > this.walkTime * 0.8)
                 .map((schedule) =>{
                     this.diff_minutes(schedule)
                     return schedule
@@ -128,7 +128,7 @@ class Ratp extends Component {
         //let hour = date.getHours();
         // Split time in two differents times
         let time = schedule.message.time
-        if(parseInt(time, 10) > 0){
+        if(parseInt(time, 10) > this.walkTime * 0.8){
              schedule.time = time - minutes
         }
         return schedule
@@ -178,9 +178,7 @@ class Ratp extends Component {
           let style = {
               color:"black"
           }
-          if(props.time === 0){
-              displaytime = "Train à l'approche"
-          }else if(props.time !== undefined){
+          if(props.time !== undefined){
               displaytime = "("+props.time + " mn)"
               if(walkTime < props.time){
                   style = {
@@ -201,15 +199,15 @@ class Ratp extends Component {
           )
       }
     return (
-      <div className="App RATP">
+      <div className="App RATP" style={{backgroundColor: "#ccffcc"}}>
           <div style={this.state.divStyle} className="row"><b><img src={this.logo} alt={this.line} style={{width:"25px",display: "inline"}}/>
               {this.displayStation} </b> <button className="fa fa-refresh" onClick={this.refresh}> </button></div>
           <span className="col-offset-1 col-10"> {this.state.slug !== "normal" ? this.state.message : ""}</span>
           <div className="row">
-              <div className="col-md-6 col-6">Destination</div>
-              <div className="col-md-6 col-6">Temps</div>
+              <div className="col-md-6 col-6"><b>Destination</b></div>
+              <div className="col-md-6 col-6"><b>Temps</b></div>
           </div>
-          <div>
+          <div style={{fontsize: "14px"}}>
               {this.state.schedules.map(eachSchedule)}
           </div>
       </div>

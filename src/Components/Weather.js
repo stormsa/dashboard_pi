@@ -17,6 +17,7 @@ class Weather extends Component{
             long:"",
             lat:''
         }
+        this.background = require("../images/weather/weather_background.jpg");
         this.city = props.city
     }
     componentDidMount(){
@@ -28,7 +29,7 @@ class Weather extends Component{
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    temperature: data.main.temp,
+                    temperature: (Math.round(data.main.temp * 10) / 10),
                     humidite: data.main.humidity,
                     vent:(data.wind.speed / 1000 * 3600).toFixed(2),
                     image:"http://openweathermap.org/img/w/"+data.weather[0].icon+".png",
@@ -39,20 +40,20 @@ class Weather extends Component{
     }
     render(){
         return(
-            <div className="App">
+            <div className="App" style={{backgroundImage: "url(" + this.background + ")"}}>
                 <div style={{backgroundColor: 'blue'}} className="col-offset-1 col-12"><b>Météo {this.city} </b> <button className="fa fa-refresh" onClick={this.getWeather}> </button></div>
-                <div id="zone_meteo" className="col-12" >
-                    <div className="col-12">
+                <div id="zone_meteo"  className="col-12" >
+                    <div className="col-12" id="temperature">
                         Température {this.state.temperature} °C
                     </div>
-                    <div className="col-12">
+                    <div className="col-12" id="humidite">
                         Humidite {this.state.humidite} %
                     </div>
                     <div className="col-12">
                         <img id="image" style={{width: "100px"}} alt="weather" src={this.state.image}/>
                     </div>
 
-                    <div className="col-12">
+                    <div className="col-12" id="vent">
                         Vent {this.state.vent} km/h
                         <input type="hidden" id="long" value={this.state.long}/>
                         <input type="hidden" id="lat" value={this.state.lat}/>
