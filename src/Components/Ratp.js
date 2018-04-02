@@ -16,7 +16,7 @@ class Ratp extends Component {
             times: [],
             divStyle: {
                 backgroundColor: 'green',
-                paddingLeft: "50px"
+                paddingLeft: "100px"
             }
         }
         this.getTraffic = this.getTraffic.bind(this)
@@ -52,7 +52,7 @@ class Ratp extends Component {
                     this.setState({
                         divStyle: {
                             backgroundColor: 'red',
-                            paddingLeft: "50px"
+                            paddingLeft: "100px"
                         }
                     })
                 }
@@ -193,21 +193,22 @@ class Ratp extends Component {
           }
           return (
               <div className="row">
-                  <div className="col-md-6 col-6">{props.destination}</div>
-                  <div className="col-md-6 col-6">{props.message} <span style={style}> {displaytime}</span>  </div>
+                  <div className="col-md-8 col-8">{props.destination}</div>
+                  <div className="col-md-4 col-4">{props.message} <span style={style}> {displaytime}</span>  </div>
               </div>
           )
       }
     return (
       <div className="App RATP" style={{backgroundColor: "#ccffcc"}}>
-          <div style={this.state.divStyle} className="row"><b><img src={this.logo} alt={this.line} style={{width:"25px",display: "inline"}}/>
-              {this.displayStation} </b> <button className="fa fa-refresh" onClick={this.refresh}> </button></div>
-          <span className="col-offset-1 col-10"> {this.state.slug !== "normal" ? this.state.message : ""}</span>
+          <div style={this.state.divStyle} className="header row">
+              <b><img src={this.logo} alt={this.line} style={{width: "28px", marginRight: "10px", verticalAlign: "middle",display: "inline"}}/>
+              {this.displayStation} </b> <button className="refresh fa fa-refresh" onClick={this.refresh}> </button></div>
+          <p>{this.state.slug !== "normal" ? this.state.message : ""}</p>
           <div className="row">
-              <div className="col-md-6 col-6"><b>Destination</b></div>
-              <div className="col-md-6 col-6"><b>Temps</b></div>
+              <div className="col-md-8 col-8"><b>Destination</b></div>
+              <div className="col-md-4 col-4"><b>Temps</b></div>
           </div>
-          <div style={{fontsize: "14px"}}>
+          <div style={{fontsize: "14px",padding: "10px"}}>
               {this.state.schedules.map(eachSchedule)}
           </div>
       </div>

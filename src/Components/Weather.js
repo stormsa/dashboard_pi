@@ -41,7 +41,7 @@ class Weather extends Component{
     render(){
         return(
             <div className="App" style={{backgroundImage: "url(" + this.background + ")"}}>
-                <div style={{backgroundColor: 'blue'}} className="col-offset-1 col-12"><b>Météo {this.city} </b> <button className="fa fa-refresh" onClick={this.getWeather}> </button></div>
+                <div style={{backgroundColor: 'blue'}} className="header col-offset-1 col-12"><b>Météo {this.city} </b> <button className="refresh fa fa-refresh" onClick={this.getWeather}> </button></div>
                 <div id="zone_meteo"  className="col-12" >
                     <div className="col-12" id="temperature">
                         Température {this.state.temperature} °C
