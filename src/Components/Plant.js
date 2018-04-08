@@ -11,7 +11,7 @@ class Plant extends Component{
             lastArrosage: props.lastArrosage
         }
         this.name = props.name
-        this.key = props.key
+        this.id = props.id
         this.instruction = props.instruction
         this.description = props.description
         this.arrose = this.arrose.bind(this)
@@ -23,11 +23,9 @@ class Plant extends Component{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                plant_id: this.key
-            })
+            body: JSON.stringify({plant_id: this.id})
         })
-            .then(response => response.json)
+            .then(response => response.json())
             .then(data =>{
                 this.setState({
                     lastArrosage: data.result.lastArrosage
@@ -46,7 +44,7 @@ class Plant extends Component{
                             Durée de vie : {this.description} <br/>
                 </div>
                 <div className="col-12">
-                    <button className="btn btn-default btn-large" onClick={arrose} style={{backgroundColor:"#28a745"}}><i className="fa fa-shower"> </i> Arroser </button>
+                    <button className="btn btn-default btn-large" onClick={this.arrose} style={{backgroundColor:"#28a745"}}><i className="fa fa-shower"> </i> Arroser </button>
                 </div>
             </div>
         )

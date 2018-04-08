@@ -22,7 +22,7 @@ class Dashboard extends Component {
     }
     componentDidMount(){
         fetch("/plant/all")
-            .then(response => response.json)
+            .then(response => response.json())
             .then(data =>{
                 this.setState({
                     plantes: data.result
@@ -33,9 +33,10 @@ class Dashboard extends Component {
       const eachPlant = function(plant){
           return (
               <div>
-                  <Plant    key={plant.id}
-                            name={plant.name}
-                            instruction={plant.instruction}
+                  <Plant    key={plant._id}
+                            id={plant._id}
+                            name={plant.nom}
+                            instruction={plant.instructions}
                             description={plant.description}
                             lastArrosage={plant.lastArrosage}>
                   </Plant>
@@ -52,7 +53,7 @@ class Dashboard extends Component {
                 </div>
                 <div>
                     <Weather city={CITY[0]}/>
-                    <p className="legend">Weather APP</p>
+                    <p className="legend">{CITY[0]} Weather</p>
                 </div>
                 {this.state.plantes.map(eachPlant)}
             </Carousel>
