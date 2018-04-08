@@ -14,7 +14,35 @@ const LINES= ["A", "B", "1", "2", "3", "3b", "4", "5", "6", "7", "7b","8", "9", 
 const CITY = ["Paris","Le Havre","Orleans","Lyon","Nice","Nantes","Bordeaux","Marseille","Toulouse","Rennes","Reims","Rouen"]
 
 class Dashboard extends Component {
+    constructor(){
+        super()
+        this.state = {
+            plantes: []
+        }
+    }
+    componentDidMount(){
+        fetch("/plant/all")
+            .then(response => response.json)
+            .then(data =>{
+                this.setState({
+                    plantes: data.result
+                })
+            })
+    }
   render() {
+      const eachPlant = function(plant){
+          return (
+              <div>
+                  <Plant    key={plant.id}
+                            name={plant.name}
+                            instruction={plant.instruction}
+                            description={plant.description}
+                            lastArrosage={plant.lastArrosage}>
+                  </Plant>
+                  <p className="legend">{plant.name}</p>
+              </div>
+          )
+      }
     return (
         <div className="container">
             <Carousel showArrows={true} showThumbs={false} onClickItem={console.log("hello")}>
@@ -26,18 +54,7 @@ class Dashboard extends Component {
                     <Weather city={CITY[0]}/>
                     <p className="legend">Weather APP</p>
                 </div>
-                <div>
-                    <Plant name="Ma plante"/>
-                    <p className="legend">Plante APP</p>
-                </div>
-                <div>
-                    <span> </span>
-                    <p className="legend">RATP APP</p>
-                </div>
-                <div>
-                    <span> </span>
-                    <p className="legend">RATP APP</p>
-                </div>
+                {this.state.plantes.map(eachPlant)}
             </Carousel>
         </div>
 
