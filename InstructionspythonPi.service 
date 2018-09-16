@@ -1,0 +1,19 @@
+sudo chmod 644 /lib/systemd/system/pythonPi.service
+chmod +x ~/Documents/dashboard_pi/server.py
+sudo systemctl daemon-reload
+sudo systemctl enable pythonPi.service
+sudo systemctl start pythonPi.service
+
+[Unit]
+Description=Handle raspberry pi web application
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/pi/
+User=pi
+Type=simple
+ExecStart=/usr/bin/python /home/pi/Documents/dashboard_pi/server.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

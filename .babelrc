@@ -7,7 +7,6 @@
       "loose": true,
       "modules": false
     }],
-    "react",
-    "react-hmre"
+    "react"
   ]
 }

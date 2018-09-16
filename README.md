@@ -50,3 +50,16 @@ To run the app in production build of the app, use either of the following.
 ```bash
  npm start
 ```
+
+#Running with python
+```bash
+ pip install yeelight
+ python server.py
+```
+
+#Edit autostart raspberry
+```bash
+ sudo nano /lib/systemd/system/pythonPi.service
+ sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
+ sudo systemctl status pythonPi.service
+```

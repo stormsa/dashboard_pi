@@ -7,6 +7,7 @@ import Ratp from "./Components/Ratp";
 import {Carousel} from 'react-responsive-carousel';
 import Weather from "./Components/Weather";
 import Plant from "./Components/Plant";
+import Bulb from "./Components/Bulb";
 
 // RATP CONSTANTES
 const TRANSPORT_TYPE = ["rers", "metro"]
@@ -46,7 +47,7 @@ class Dashboard extends Component {
       }
     return (
         <div className="container">
-            <Carousel showArrows={true} showThumbs={false} onClickItem={console.log("hello")}>
+            <Carousel showArrows={true} showThumbs={false}>
                 <div>
                     <Ratp transportType={TRANSPORT_TYPE[0]} line={LINES[0]} walkTime="13" station="Le Parc De Saint Maur" way="A"/>
                     <p className="legend">RATP APP</p>
@@ -54,6 +55,10 @@ class Dashboard extends Component {
                 <div>
                     <Weather city={CITY[0]}/>
                     <p className="legend">{CITY[0]} Weather</p>
+                </div>
+                <div>
+                    <Bulb/>
+                    <p className="legend">Ampoule Yeelight</p>
                 </div>
                 {this.state.plantes.map(eachPlant)}
             </Carousel>
