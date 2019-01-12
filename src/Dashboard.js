@@ -8,11 +8,16 @@ import {Carousel} from 'react-responsive-carousel';
 import Weather from "./Components/Weather";
 import Plant from "./Components/Plant";
 import Bulb from "./Components/Bulb";
+let Config = require('Config');
 
 // RATP CONSTANTES
-const TRANSPORT_TYPE = ["rers", "metro"]
-const LINES= ["A", "B", "1", "2", "3", "3b", "4", "5", "6", "7", "7b","8", "9", "10", "12", "13", "14"]
-const CITY = ["Paris","Le Havre","Orleans","Lyon","Nice","Nantes","Bordeaux","Marseille","Toulouse","Rennes","Reims","Rouen"]
+let transportConfig = Config.ratp
+const transport_type = transportConfig.TRANSPORT_TYPE.PossibleValues[transportConfig.TRANSPORT_TYPE.choosenIndex]
+const line= transportConfig.LINES.PossibleValues[transportConfig.LINES.choosenIndex]
+const walktime= transportConfig.WalkToStation
+const station = transportConfig.Station
+const way = transportConfig.Way.choice
+const city = Config.weather.City.PossibleValues[Config.weather.City.choosenIndex]
 
 class Dashboard extends Component {
     constructor(){
@@ -49,12 +54,12 @@ class Dashboard extends Component {
         <div className="container">
             <Carousel showArrows={true} showThumbs={false}>
                 <div>
-                    <Ratp transportType={TRANSPORT_TYPE[0]} line={LINES[0]} walkTime="13" station="Le Parc De Saint Maur" way="A"/>
+                    <Ratp transportType={transport_type} line={line} walkTime={walktime} station={station} way={way}/>
                     <p className="legend">RATP APP</p>
                 </div>
                 <div>
-                    <Weather city={CITY[0]}/>
-                    <p className="legend">{CITY[0]} Weather</p>
+                    <Weather city={city}/>
+                    <p className="legend">{city} Weather</p>
                 </div>
                 <div>
                     <Bulb/>

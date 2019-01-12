@@ -44,5 +44,8 @@ module.exports = {
 		port,
 		historyApiFallback: true,
 		publicPath: '/dist/',
-	}
+	},
+    externals: {
+        'Config': JSON.stringify(process.env ? require('./config.json') : require('./config.json'))
+    }
 }
