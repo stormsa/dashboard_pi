@@ -34,7 +34,7 @@ With NPM
 npm install
 ```
 
-## Runnning the bundle
+## Runnning the bundle with webpack
 
 ```bash
  npm run build
@@ -51,11 +51,12 @@ To run the app in production build of the app, use either of the following.
  npm start
 ```
 
-#Running with python
+#Running with python (The front needs to be update with webpack still)
 ```bash
- pip install yeelight
- python server.py
+ pip3 install -r requirements.txt
+ python3 server.py
 ```
+Navigate to [http://localhost:5000/](http://localhost:5000).
 
 #Edit autostart raspberry
 ```bash
@@ -63,3 +64,9 @@ To run the app in production build of the app, use either of the following.
  sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
  sudo systemctl status pythonPi.service
 ```
+
+
+##Sources
+
+yeelight api : https://yeelight.readthedocs.io/en/latest/
+ratp api : https://api-ratp.pierre-grimaud.fr/v3

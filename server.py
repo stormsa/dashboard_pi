@@ -20,8 +20,6 @@ app = Flask(__name__, static_folder="dist", template_folder="public")
 
 
 # Create a URL route in our application for "/"
-
-
 @app.route('/')
 def home():
     """
