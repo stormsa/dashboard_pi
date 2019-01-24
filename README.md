@@ -1,72 +1,86 @@
 # React Dashboard PI
+![Dashboard PI](dashboardPi.png)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) 
 
-A dashboard to use with a Raspberry PI and it's screen between 3.5 to 7"
+A dashboard to use with a Raspberry PI and it's screen between 3.5 to 7" inch
+
+## Tech
++ React Front application
++ Python3 with Flask Server 
++ Node Package Manager 
++ File bundling with Webpack
++ ES6 and greater => ES5 Code transpiling (with Babel)
++ Styling with SASS
 
 ## Features
+
 + Display RATP Traffic and schedules 
 + Display weather
-+ Display informations about a plant you choosed
-+ ES6 and greater => ES5 code transpiling (with Babel)
-+ Styling with SASS
-+ File bundling with webpack
-+ local development with the webpack development server
++ Manage Xiaomi Yeelight bulb (Autodetect, turn on and turn off)
+
 
 ## Requirements
-To run this project, you’ll need to install node package manager and webpack Dev Server.
 
-The dependencies of this project are managed with , npm for your dependency management.
+* [NPM](https://www.npmjs.com/)
+* [Python3](https://www.python.org/downloads/)
 
-## Setting up
-+ Clone this project to any folder on your local machine
+## Getting start
+
+
+Clone this project to any folder on your local machine
 ```bash
 git clone https://github.com/stormsa/dashboard_pi.git <FOLDER_NAME_HERE>
 ```
-+ Navigate into the folder name specified
+Navigate into the folder name specified
 ```bash
 cd <FOLDER_NAME_HERE>
 ```
 
-## Installing Packages
++ Installing Packages
 
-With NPM
+With NPM for front and pip for server
 ```bash 
 npm install
+pip3 install -r requirements.txt
 ```
 
-## Runnning the bundle with webpack
+## Running project in Development
+
++ Rendering app with webpack development server (python server is not started)
 
 ```bash
- npm run build
+npm run start
 ```
-## Running the app in Development
 
-Run `npm start` to intialize and run the webpack development server. Navigate to [http://localhost:3000/](http://localhost:3000). The app will automatically reload if you change any of the source files.
+The app will automatically reload if you change any of the source files)
+Navigate to [http://localhost:3000/](http://localhost:3000). 
 
-## Running the app in Production
 
-To run the app in production build of the app, use either of the following.
-
++ Rendering app with python server
 ```bash
- npm start
+ npm run startwithserver
 ```
 
-#Running with python (The front needs to be update with webpack still)
-```bash
- pip3 install -r requirements.txt
- python3 server.py
-```
 Navigate to [http://localhost:5000/](http://localhost:5000).
 
-#Edit autostart raspberry
+## Build app for production
+
 ```bash
+ npm run build:production
+```
+(copy dist folder in your server with python server)
+
+## Edit autostart raspberry
+```bash
+ sudo cp dashboardPi.service /lib/systemd/system/
  sudo nano /lib/systemd/system/pythonPi.service
  sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
  sudo systemctl status pythonPi.service
 ```
 
+## Sources
 
-##Sources
+[Yeelight Api](https://yeelight.readthedocs.io/en/latest/)
 
-yeelight api : https://yeelight.readthedocs.io/en/latest/
-ratp api : https://api-ratp.pierre-grimaud.fr/v3
+[Ratp Api](https://api-ratp.pierre-grimaud.fr/v3)
