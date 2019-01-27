@@ -1,13 +1,13 @@
 {
-  "name": "react-webpack-kit",
+  "name": "react-dashboard-pi",
   "version": "1.0.0",
   "description": "a dashboard to use with a Raspberry PI and it's screen between 3.5 to 7",
-  "main": "src/js/app.js",
+  "main": "./src/index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.config.dev.js",
     "build:production": "./node_modules/.bin/webpack --config webpack.config.production.js",
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
-    "startWithServer" : "./node_modules/.bin/webpack --config webpack.config.dev.js && python3 server.py"
+    "startWithServer": "./node_modules/.bin/webpack --config webpack.config.dev.js && python3 ../Server/server.py"
   },
   "homepage": "https://github.com/stormsa/dashboard_pi",
   "repository": "https://github.com/stormsa/dashboard_pi.git",

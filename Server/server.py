@@ -18,18 +18,11 @@ except Exception as err:
 # Create the application instance
 app = Flask(__name__, static_folder="dist", template_folder="public")
 
-
-# Create a URL route in our application for "/"
+# This function just responds to the browser URL localhost:5000/
+# Return the rendered template 'index.html'
 @app.route('/')
 def home():
-    """
-    This function just responds to the browser ULR
-    localhost:5000/
-
-    :return:        the rendered template 'home.html'
-    """
     return render_template('index.html')
-
 
 # Create a URL route in our application for "/"
 @app.route('/getState')
@@ -59,4 +52,4 @@ def toggle():
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
