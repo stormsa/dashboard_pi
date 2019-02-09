@@ -37,6 +37,8 @@ Navigate into the folder name specified
 cd <FOLDER_NAME_HERE>
 ```
 
+## Run It On your marchine 
+
 + Installing Packages
 
 With NPM for front and pip for server
@@ -45,39 +47,52 @@ npm install
 pip3 install -r requirements.txt
 ```
 
-## Running project in Development
++ Start front app
 
-+ Rendering app with webpack development server (python server is not started)
+(Rendering app with webpack development server. Python server is not started yet)
+(It will automatically reload if you change any of the source files)
 
 ```bash
 npm run start
 ```
 
-The app will automatically reload if you change any of the source files)
 Navigate to [http://localhost:3000/](http://localhost:3000). 
 
++ Start server app
 
-+ Rendering app with python server
 ```bash
  npm run startwithserver
 ```
 
 Navigate to [http://localhost:5000/](http://localhost:5000).
 
-## Build app for production
+## Run it with Docker
+```
+docker image build -t . dashboard_pi
+docker container run -d -p 5000:5000 dashboard_pi
+```
+
+## Build app only
 
 ```bash
  npm run build:production
 ```
-(copy dist folder in your server with python server)
 
 ## Edit autostart raspberry
 ```bash
- sudo cp dashboardPi.service /lib/systemd/system/
- sudo nano /lib/systemd/system/pythonPi.service
+ sudo cp dashboardPi_service /lib/systemd/system/dashboardPi.service
+ sudo nano /lib/systemd/system/dashboardPi.service
  sudo nano /home/pi/.config/lxsession/LXDE-pi/autostart
- sudo systemctl status pythonPi.service
+ sudo systemctl status dashboardPi.service
 ```
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new [Pull Request](../../pull/new/master)
 
 ## Sources
 
