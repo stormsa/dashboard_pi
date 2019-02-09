@@ -6,7 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.config.dev.js",
     "build:production": "./node_modules/.bin/webpack --config webpack.config.production.js",
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base public/",
     "startWithServer": "./node_modules/.bin/webpack --config webpack.config.dev.js && python3 ../Server/server.py"
   },
   "homepage": "https://github.com/stormsa/dashboard_pi",
@@ -41,8 +41,11 @@
     "react-responsive-carousel": "^3.1.33",
     "sass-loader": "^6.0.6",
     "url-loader": "^1.0.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^3.1.14",
-    "webpack-merge": "^4.1.1"
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-cli": "2.0.13",
+    "webpack-config-utils": "2.0.0",
+    "webpack-merge": "^3.0.0",
+    "webpack-validator": "^3.0.1"
   }
 }

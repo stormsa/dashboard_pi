@@ -200,7 +200,7 @@ class Ratp extends Component {
       }
     return (
       <div className="App RATP" style={{backgroundColor: "#ccffcc"}}>
-          <div style={this.state.divStyle} className="header row">
+          <div style={this.state.divStyle} className="header col-offset-1 col-12">
               <b><img src={this.logo} alt={this.line} style={{width: "28px", marginRight: "10px", verticalAlign: "middle",display: "inline"}}/>
               {this.displayStation} </b> <button className="refresh fa fa-refresh" onClick={this.refresh}> </button></div>
           <p>{this.state.slug !== "normal" ? this.state.message : ""}</p>

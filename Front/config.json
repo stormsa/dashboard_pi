@@ -18,7 +18,7 @@
   "weather": {
     "City": {
       "PossibleValues": ["Paris","Le Havre","Orleans","Lyon","Nice","Nantes","Bordeaux","Marseille","Toulouse","Rennes","Reims","Rouen"],
-      "choosenIndex": 1
+      "choosenIndex": 0
     }
   }
 }

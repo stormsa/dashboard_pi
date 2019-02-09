@@ -18,6 +18,7 @@ class Weather extends Component{
             lat:''
         }
         this.background = require("../images/weather/weather_background.jpg");
+        this.getWeather = this.getWeather.bind(this)
         this.city = props.city
     }
     componentDidMount(){
