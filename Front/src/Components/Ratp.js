@@ -7,6 +7,8 @@ class Ratp extends Component {
     // A RATP COMPONENT will be use to display an horaire for a specific data
     constructor(props){
         super(props)
+
+        this.ratpLogo = require("../images/ratp/logo.svg")
         this.state = {
             title: "Chargement en cours",
             message: "",
@@ -17,6 +19,14 @@ class Ratp extends Component {
             divStyle: {
                 backgroundColor: 'green',
                 paddingLeft: "100px"
+            },
+            backgroundStyle: {
+                backgroundColor: "#ccffcc",
+                backgroundImage: `url(${this.ratpLogo})`,
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+                backgroundPosition: "center",
+                backgroundSize: "20%"
             }
         }
         this.getTraffic = this.getTraffic.bind(this)
@@ -31,9 +41,8 @@ class Ratp extends Component {
         this.line = props.line
         this.destination = props.destination
         this.transportType = props.transportType
-        this.imgPath = "../images/"
-        this.image = this.imgPath + this.transportType + "/" + this.line+".png"
-        this.logo = require("../images/"+this.transportType+"/"+this.line+".png");
+        this.lineLogo = require("../images/ratp/" + this.transportType + "/" + this.line+".png")
+
     }
     componentDidMount(){
         this.refresh()
@@ -199,17 +208,19 @@ class Ratp extends Component {
           )
       }
     return (
-      <div className="App RATP" style={{backgroundColor: "#ccffcc"}}>
+      <div className="App RATP" style={this.state.backgroundStyle}>
           <div style={this.state.divStyle} className="header col-offset-1 col-12">
-              <b><img src={this.logo} alt={this.line} style={{width: "28px", marginRight: "10px", verticalAlign: "middle",display: "inline"}}/>
+              <b><img src={this.lineLogo} alt={this.line} style={{width: "28px", marginRight: "10px", verticalAlign: "middle",display: "inline"}}/>
               {this.displayStation} </b> <button className="refresh fa fa-refresh" onClick={this.refresh}> </button></div>
           <p>{this.state.slug !== "normal" ? this.state.message : ""}</p>
-          <div className="row">
-              <div className="col-md-8 col-8"><b>Destination</b></div>
-              <div className="col-md-4 col-4"><b>Temps</b></div>
-          </div>
-          <div style={{fontsize: "14px",padding: "10px"}}>
-              {this.state.schedules.map(eachSchedule)}
+          <div>
+              <div className="row">
+                  <div className="col-md-8 col-8"><b>Destination</b></div>
+                  <div className="col-md-4 col-4"><b>Temps</b></div>
+              </div>
+              <div style={{fontsize: "14px",padding: "10px"}}>
+                  {this.state.schedules.map(eachSchedule)}
+              </div>
           </div>
       </div>
     );
