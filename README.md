@@ -61,7 +61,7 @@ Navigate to [http://localhost:3000/](http://localhost:3000).
 + Start server app
 
 ```bash
- npm run startwithserver
+ npm run start-with-server
 ```
 
 Navigate to [http://localhost:5000/](http://localhost:5000).

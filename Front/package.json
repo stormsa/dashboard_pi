@@ -7,7 +7,7 @@
     "build": "./node_modules/.bin/webpack --config webpack.config.dev.js",
     "build:production": "./node_modules/.bin/webpack --config webpack.config.production.js",
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --content-base public/",
-    "startWithServer": "./node_modules/.bin/webpack --config webpack.config.dev.js && python3 ../Server/server.py"
+    "start-with-server": "./node_modules/.bin/webpack --config webpack.config.dev.js && python3 ../Server/server.py"
   },
   "homepage": "https://github.com/stormsa/dashboard_pi",
   "repository": "https://github.com/stormsa/dashboard_pi.git",
