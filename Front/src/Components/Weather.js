@@ -20,6 +20,7 @@ class Weather extends Component{
         this.background = require("../images/weather/weather_background.jpg");
         this.getWeather = this.getWeather.bind(this)
         this.city = props.city
+        this.style= props.style
     }
     componentDidMount(){
         this.getWeather()
@@ -41,7 +42,7 @@ class Weather extends Component{
     }
     render(){
         return(
-            <div className="App" style={{backgroundImage: "url(" + this.background + ")"}}>
+            <div className="App" style={Object.assign({backgroundImage: "url(" + this.background + ")"}, this.style)}>
                 <div style={{backgroundColor: 'blue'}} className="header col-offset-1 col-12"><b>Météo {this.city} </b> <button className="refresh fa fa-refresh" onClick={this.getWeather}> </button></div>
                 <div id="zone_meteo"  className="col-12" >
                     <div className="col-12" id="temperature">

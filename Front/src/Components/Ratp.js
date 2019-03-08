@@ -20,14 +20,14 @@ class Ratp extends Component {
                 backgroundColor: 'green',
                 paddingLeft: "100px"
             },
-            backgroundStyle: {
+            backgroundStyle: Object.assign({
                 backgroundColor: "#ccffcc",
                 backgroundImage: `url(${this.ratpLogo})`,
                 backgroundRepeat: "no-repeat",
                 backgroundAttachment: "fixed",
                 backgroundPosition: "center",
                 backgroundSize: "20%"
-            }
+            }, props.style)
         }
         this.getTraffic = this.getTraffic.bind(this)
         this.getHoraire = this.getHoraire.bind(this)

@@ -20,6 +20,7 @@ class Bulb extends Component{
         this.setBright = this.setBright.bind(this)
         this.bright_up = this.bright_up.bind(this)
         this.bright_down = this.bright_down.bind(this)
+        this.style = props.style
     }
     componentDidMount(){
         this.getState()
@@ -68,7 +69,7 @@ class Bulb extends Component{
 
     render(){
         return(
-            <div className="App" style={{backgroundColor: "#c435e8"}}>
+            <div className="App" style={Object.assign({backgroundColor: "#c435e8"}, this.style)}>
                 <div style={{backgroundColor: 'yellow'}} className="header col-offset-1 col-12"><b style={{color: 'black'}}>Ampoule </b></div>
                 <div className="row">
                     <div className="col-3" >
