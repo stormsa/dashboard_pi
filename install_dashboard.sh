@@ -13,31 +13,61 @@ installDashBoard() {
 		echo "Sorry, you need to run this as root"
 		exit 1
 	fi
+
+	if [[ -z $1 && -z $2 ]]; then
+		echo "Sorry, you need to provide name and mail for git"
+		exit 1
+	fi
+
 	echo "Installing dashboard ..."
 
 	echo "Updating the package database"
 	
-	apt update upgrade
+	apt-get update
+	apt-get upgrade
+	apt-get autoremove
 	
 	echo "Update ok"
 	
-	echo "Installing python, npm and git"
+	echo "Installing node and npm"
+	if which npm > /dev/null
+    then
+        echo "Node is installed, skipping..."
+    else
+    	apt-get install nodejs npm node-semver
+    fi
+
+    npm cache clean -f
+    npm install npm@latest -g
+
+	echo "Installing python and git"
 	
-	apt-get install git npm python3-picamera python3-pip
+	apt-get install git python3-picamera python3-pip
 	
-	echo "Install ok"
+	echo "Install done"
+	git config --global user.name "$1"
+	git config --global user.email "$2"
 	
 	# Download sources
-	git clone https://github.com/stormsa/dashboard_pi.git /home/pi/Documents/
+	cd /home/pi/Documents/
+
+	if [ ! -d dashboard_pi ] ;then
+		git clone https://github.com/stormsa/dashboard_pi.git
+	fi
 	
-	cd /home/pi/Documents/dashboard_pi
+	cd dashboard_pi
 	
-	# Install Front
-	(cd Front; npm install; npm run build :production)
+	echo "Installing Front"
+	cd Front
+	npm install --unsafe-perm --no-optional --no-shrinkwrap --no-package-lock
+	npm run build:production
+	cp -r dist ../Server/
+	cp -r public ../Server/
+
 	
-	# Install server 
-	cd Server
-	pip -r install requirements.txt)
+	echo "Installing back"
+	cd ../Server
+	pip install -r requirements.txt
 	chmod +x server.py
 	
 	# Set dashboard_pi as service
@@ -48,13 +78,12 @@ installDashBoard() {
 	systemctl enable dashboardPi.service
 	systemctl start dashboardPi.service
 	
-	nano /home/pi/.config/lxsession/LXDE-pi/autostart
-	
 	echo @chromium-browser --kiosk --disable-session-crashed-bubble --disable-infobars http://127.0.0.1:5000/ >> /home/pi/.config/lxsession/LXDE-pi/autostart
 	
-	restart
+	reboot
 }
-installDashBoard
+
+installDashBoard $1 $2
 
 
 
